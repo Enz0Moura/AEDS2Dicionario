@@ -102,11 +102,15 @@ No* rotacionarRR(No* p) {
 }
 
 No* rotacionarRL(No* p) {
-    return p;
+    printf("Rotacionou RL\n");
+    p->dir = rotacionarLL(p->dir);
+    return rotacionarRR(p);
 }
 
 No* rotacionarLR(No* p) {
-    return p;
+    printf("Rotacionou LR\n");
+    p->esq = rotacionarRR(p->esq);
+    return rotacionarLL(p);
 }
 
 No* insere_palavra(No* p, char* nome, char* significado) {
@@ -128,13 +132,18 @@ No* insere_palavra(No* p, char* nome, char* significado) {
     }
     p->balanceamento = fb(p);
 
-    if (p->balanceamento == 2 && p->esq->balanceamento == 1) return rotacionarLL(p);
-
-    else if (p->balanceamento == 2 && p->esq->balanceamento == -1) return rotacionarLR(p);
-
-    else if (p->balanceamento == -2 && p->dir->balanceamento == -1) return rotacionarRR(p);
-
-    else if (p->balanceamento == -2 && p->esq->balanceamento == 1) return rotacionarRL(p);
+    if (p->balanceamento == 2) {
+        if (p->esq->balanceamento >= 0)
+            return rotacionarLL(p);
+        else
+            return rotacionarLR(p);
+    }
+    else if (p->balanceamento == -2) {
+        if (p->dir->balanceamento <= 0)
+            return rotacionarRR(p);
+        else
+            return rotacionarRL(p);
+    }
 
 
     return p;
