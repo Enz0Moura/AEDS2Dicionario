@@ -59,6 +59,56 @@ int fb(No* p) {
     return altura(p->esq) - altura(p->dir);
 }
 
+No* rotacionarLL(No* p) {
+    printf("Rotacionou LL");
+    No* pesq = p->esq;
+    No* pesqdir = pesq->dir;
+
+    pesq->dir = p;
+
+    if (p->pai == p) pesq->pai = pesq;
+    else pesq->pai = p->pai;
+
+    p->pai = pesq;
+    p->esq = pesqdir;
+
+    if (pesqdir != NULL) pesqdir->pai = p;
+
+    p->balanceamento = fb(p);
+    pesq->balanceamento = fb(pesq);
+
+    return pesq;
+}
+
+No* rotacionarRR(No* p) {
+    printf("Rotacionou RR");
+    No* pdir = p->dir;
+    No* pdiresq = pdir->esq;
+
+    pdir->esq = p;
+
+    if (p->pai == p) pdir->pai = pdir;
+    else pdir->pai = p->pai;
+
+    p->pai = pdir;
+    p->dir = pdiresq;
+
+    if (pdiresq != NULL) pdiresq->pai = p;
+
+    p->balanceamento = fb(p);
+    pdir->balanceamento = fb(pdir);
+
+    return pdir;
+}
+
+No* rotacionarRL(No* p) {
+    return p;
+}
+
+No* rotacionarLR(No* p) {
+    return p;
+}
+
 No* insere_palavra(No* p, char* nome, char* significado) {
     No* novo = NULL;
 
@@ -71,13 +121,22 @@ No* insere_palavra(No* p, char* nome, char* significado) {
     if (compara_strings(nome, p->palavra) < 0) {
         p->esq = insere_palavra(p->esq, nome, significado);
         p->esq->pai = p;
-        p->balanceamento = fb(p);
     }
     else if (compara_strings(nome, p->palavra) > 0) {
         p->dir = insere_palavra(p->dir, nome, significado);
         p->dir->pai = p;
-        p->balanceamento = fb(p);
     }
+    p->balanceamento = fb(p);
+
+    if (p->balanceamento == 2 && p->esq->balanceamento == 1) return rotacionarLL(p);
+
+    else if (p->balanceamento == 2 && p->esq->balanceamento == -1) return rotacionarLR(p);
+
+    else if (p->balanceamento == -2 && p->dir->balanceamento == -1) return rotacionarRR(p);
+
+    else if (p->balanceamento == -2 && p->esq->balanceamento == 1) return rotacionarRL(p);
+
+
     return p;
 }
 
@@ -93,7 +152,7 @@ No* le_palavras(No* avl) {
     if (avl == NULL){
         avl = aloca_avl(palavra, significado);
     }
-    else insere_palavra(avl, palavra, significado);
+    else avl = insere_palavra(avl, palavra, significado);
 
     return avl;
 }
@@ -112,7 +171,7 @@ No* le_palavras(No* avl) {
 int main(void)
 {
     No* avl = NULL;
-    for (int i = 0; i < 4; i++) avl = le_palavras(avl);
+    for (int i = 0; i < 3; i++) avl = le_palavras(avl);
     printf("%s",avl->palavra);
     return 0;
 }
