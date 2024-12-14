@@ -26,19 +26,37 @@ typedef struct _no {
 
 } No;
 
-No* aloca_arvore() {
-    No* avl = (No*)malloc(sizeof(No));
-    avl->balanceamento = 0;
-    avl->pai = NULL;
-    avl->esq = NULL;
-    avl->dir = NULL;
-}
-
 No* aloca_no(char* nome, char*significado) {
     No* novo = (No*)malloc(sizeof(No));
     novo->palavra = nome;
     novo->significado = significado;
+    novo->balanceamento = 0;
     return novo;
+}
+
+No* aloca_avl(char* nome, char*significado) {
+    No* novo = (No*)malloc(sizeof(No));
+    novo->pai = novo;
+    novo->palavra = nome;
+    novo->significado = significado;
+    novo->balanceamento = 0;
+    return novo;
+}
+
+int altura(No* p) {
+    if (p == NULL) {
+        return -1;
+    }
+    int altura_esq = altura(p->esq);
+    int altura_dir = altura(p->dir);
+    return 1 + (altura_esq > altura_dir ? altura_esq : altura_dir);
+}
+
+int fb(No* p) {
+    if (p == NULL) {
+        return 0;
+    }
+    return altura(p->esq) - altura(p->dir);
 }
 
 No* insere_palavra(No* p, char* nome, char* significado) {
@@ -50,23 +68,20 @@ No* insere_palavra(No* p, char* nome, char* significado) {
         novo->pai = p;
         return novo;
     }
-    if (!compara_strings(nome, p->palavra)) {
+    if (compara_strings(nome, p->palavra) < 0) {
         p->esq = insere_palavra(p->esq, nome, significado);
+        p->esq->pai = p;
+        p->balanceamento = fb(p);
     }
-    else if (compara_strings(nome, p->palavra)) {
+    else if (compara_strings(nome, p->palavra) > 0) {
         p->dir = insere_palavra(p->dir, nome, significado);
+        p->dir->pai = p;
+        p->balanceamento = fb(p);
     }
     return p;
 }
 
-No* cria_avl(char* nome, char* significado) {
-    No* avl = aloca_arvore();
-    avl->palavra = nome;
-    avl->significado = significado;
-    return avl;
-}
-
-No* le_palavras() {
+No* le_palavras(No* avl) {
     char* palavra = (char*)malloc(sizeof(char) * MAX_LEN_NAME);
     char* significado = (char*)malloc(sizeof(char) * MAX_LEN);
 
@@ -75,15 +90,29 @@ No* le_palavras() {
 
     printf("Digite o significado: ");
     fgets(significado, MAX_LEN, stdin);
+    if (avl == NULL){
+        avl = aloca_avl(palavra, significado);
+    }
+    else insere_palavra(avl, palavra, significado);
 
-    No* novo = cria_avl(palavra, significado);
-
-    return novo;
+    return avl;
 }
+
+/*
+ * Comandos notáveis:
+ * 1 - inicializa árvores
+ * 2 - remove nós
+ * 3 - insere nó
+ * 4 - busca nó, retorna altura e definição.
+ * 5 - busca nó e retorna altura
+ * 6 - mostra todos os nós e suas alturas
+ */
+
 
 int main(void)
 {
-    No* avl = le_palavras();
+    No* avl = NULL;
+    for (int i = 0; i < 4; i++) avl = le_palavras(avl);
     printf("%s",avl->palavra);
     return 0;
 }
