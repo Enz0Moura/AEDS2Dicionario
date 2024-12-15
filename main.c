@@ -202,6 +202,14 @@ No* busca_no(No* avl, char* nome) {
     return aux;
 }
 
+No * sucessor(No* avl) {
+    No* aux = avl->dir;
+    while (aux->esq != NULL) {
+        aux = aux->esq;
+    }
+    return aux;
+}
+
 /*
  * Comandos notáveis:
  * 1 - inicializa árvores
