@@ -204,12 +204,11 @@ No* le_palavras(No* avl) {
 
 /*
  * Comandos notáveis:
- * 1 - inicializa árvores
- * 2 - remove nós
- * 3 - insere nó
- * 4 - busca nó, retorna altura e definição.
- * 5 - busca nó e retorna altura
- * 6 - mostra todos os nós e suas alturas
+ 1. Criar uma árvore vazia
+ 2. Remover uma palavra
+ 3. Inserir uma palavra
+ 4. Buscar palavra
+ 5. Imprimir a árvore (em ordem)
 */
 
 
