@@ -42,11 +42,11 @@ No* aloca_no(char* nome, char*significado) {
     return novo;
 }
 
-No* aloca_avl(char* nome, char*significado) {
+No* aloca_avl() {
     No* novo = (No*)malloc(sizeof(No));
-    novo->pai = novo;
-    novo->palavra = nome;
-    novo->significado = significado;
+    novo->pai = NULL;
+    novo->palavra = NULL;
+    novo->significado = NULL;
     novo->balanceamento = 0;
     return novo;
 }
@@ -132,7 +132,7 @@ void percursoEmOrdem(No * no)
     percursoEmOrdem(no->dir);
 }
 
-void balancear(No* p) {
+No * balancear(No* p) {
     p->balanceamento = fb(p);
 
     if (p->balanceamento == 2) {
@@ -147,6 +147,8 @@ void balancear(No* p) {
         else
             return rotacionarRL(p);
     }
+
+    return p;
 }
 
 No* insere_palavra(No* p, char* nome, char* significado) {
@@ -167,7 +169,7 @@ No* insere_palavra(No* p, char* nome, char* significado) {
         p->dir->pai = p;
     }
 
-    balancear(p);
+    return balancear(p);
 
     return p;
 }
@@ -271,7 +273,7 @@ void remove_palavra(No * avl, char * nome){
         }
     }
 
-    printf("%s removido com  sucesso\n" nome);
+    printf("%s removido com  sucesso\n", nome);
 }
 
 /*
@@ -287,10 +289,68 @@ void remove_palavra(No * avl, char * nome){
 
 int main(void)
 {
-    No* avl = NULL;
-    for (int i = 0; i < 3; i++) avl = le_palavras(avl);
-    No* busca = busca_no(avl, "Ameba");
-    if (busca != NULL ) printf("\n%s    h=%d",busca->palavra, altura(busca));
+    No * raiz;
+    char * palavra;
+    char * significado;
 
+    printf("+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-+\n");
+    printf("|Dicionário                                              |");
+    printf("\n|Pressione 1  para inicializar a árvore                |");
+    printf("\n|Pressione 2 para remover uma palavra                  |");
+    printf("\n|Pressione 3 para inserir uma palavra                  |");
+    printf("\n|Pressione 4 para buscar uma palavra                   |");
+    printf("\n|Pressione 5 para  imprimir o percurso em ordem        |");
+    printf("\n|Digite 6 para sair                                    |");
+    printf("\n+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-+\n");
+    char opcao;
+    while (1)
+    {
+        scanf(" %c", &opcao);
+        switch (opcao)
+        {
+            case '1':
+                raiz = aloca_avl();
+                printf("Árvore criada com sucesso\n");
+                break;
+
+            case '2':
+                scanf("%s", palavra);
+                remove_palavra(raiz, palavra);
+                break;
+
+            case '3':
+                scanf("%s", palavra);
+                scanf("%s", significado);
+                insere_palavra(raiz, palavra, significado);
+                break;
+
+            case '4':
+                scanf("%s", palavra);
+                No * aux = busca_no(raiz, palavra);
+                if (aux == NULL)
+                {
+                    printf("Busca sem sucesso\n");
+                }
+                else
+                {
+                    printf("%s\n", palavra);
+                    printf("%s\n", significado);
+                }
+                break;
+
+            case '5':
+                percursoEmOrdem(raiz);
+                break;
+
+            case '6':
+                return 0;
+
+            default:
+                printf("Opcao invalida\n");
+                break;
+        }
+
+        printf("\n");
+    }
     return 0;
 }
