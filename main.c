@@ -42,12 +42,12 @@ No* aloca_no(char* nome, char*significado) {
     return novo;
 }
 
-No* aloca_avl(char* nome, char*significado) {
+No* aloca_avl() {
     No* novo = (No*)malloc(sizeof(No));
     novo->pai = novo;
-    novo->palavra = nome;
-    novo->significado = significado;
     novo->balanceamento = 0;
+    novo->palavra = NULL;
+    novo->significado = NULL;
     return novo;
 }
 
@@ -121,13 +121,17 @@ No* rotacionarLR(No* p) {
     return rotacionarLL(p);
 }
 
-No* busca_no(No* avl, char* nome) {
+No* busca_no(No* avl, char* nome, int printar) {
     No* aux = avl;
     while (aux != NULL) {
-        if (compara_strings(aux->palavra, nome) == 0) return aux;
+        if (compara_strings(aux->palavra, nome) == 0) {
+            if (printar == 1) printf("\nBusca com sucesso.\n");
+            return aux;
+        }
         else if (compara_strings(aux->palavra, nome) > 0) aux = aux->esq;
         else if (compara_strings(aux->palavra, nome) < 0) aux = aux->dir;
     }
+    if (printar == 1) printf("\nBusca sem sucesso.\n");
     return aux;
 }
 
@@ -164,7 +168,7 @@ No* insere_palavra(No* p, char* nome, char* significado) {
             return rotacionarRL(p);
     }
 
-
+    printf("\nInserção de %s com sucesso!\n", nome);
     return p;
 }
 
@@ -180,18 +184,22 @@ No* le_palavras(No* avl) {
     fgets(significado, MAX_LEN, stdin);
     remove_newline(significado);
 
-    if (avl == NULL){
-        avl = aloca_avl(palavra, significado);
+    if (avl->palavra == NULL && avl->significado == NULL){
+        avl->palavra = palavra;
+        avl->significado = significado;
+        printf("\nInserção de %s com sucesso!\n", palavra);
+        return avl;
     }
     else {
-        if( busca_no(avl, palavra) == NULL) avl = insere_palavra(avl, palavra, significado);
+        if( busca_no(avl, palavra, 0) == NULL) avl = insere_palavra(avl, palavra, significado);
         else {
-            printf("Palavra %s já existe no dicionário!\n", palavra);
+            printf("Palavra %s já existe no dicionário! Operação de inserção sem sucesso\n", palavra);
         }
     }
 
     return avl;
 }
+
 
 
 /*
@@ -207,9 +215,9 @@ No* le_palavras(No* avl) {
 
 int main(void)
 {
-    No* avl = NULL;
+    No* avl = aloca_avl();
     for (int i = 0; i < 4; i++) avl = le_palavras(avl);
-    No* busca = busca_no(avl, "Ameba");
+    No* busca = busca_no(avl, "Ameba", 1);
     if (busca != NULL ) printf("\n%s    h=%d",busca->palavra, altura(busca));
 
     return 0;
