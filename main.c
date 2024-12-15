@@ -210,6 +210,70 @@ No * sucessor(No* avl) {
     return aux;
 }
 
+void remove_palavra(No * avl, char * nome){
+
+    No* aux = busca_no(avl, nome);
+    if(aux == NULL){
+      printf("Operação de remocão da palavra %s inválida\n", nome);
+      return;
+    }
+    else if (compara_strings(aux->palavra, nome) == 0){
+
+        if(aux->esq == NULL && aux->dir == NULL){
+            if(aux == aux-> pai->esq){
+                aux->pai->esq = NULL;
+            }
+            else{
+                aux->pai->dir = NULL;
+            }
+        }
+
+        else if(aux->esq != NULL && aux->pai->esq == aux){
+            aux->pai->esq = aux->esq;
+            aux->esq->pai = aux->pai;
+        }
+
+        else if(aux->dir != NULL && aux->pai->esq == aux){
+            aux->pai->esq = aux->dir;
+            aux->dir->pai = aux->pai;
+        }
+
+        else if(aux->esq != NULL && aux->pai->dir == aux){
+            aux->pai->dir = aux->esq;
+            aux->esq->pai = aux->pai;
+        }
+
+        else if(aux->dir != NULL && aux->pai->dir == aux){
+            aux->pai->dir = aux->dir;
+            aux->dir->pai = aux->pai;
+        }
+
+        else{
+            No * suc = sucessor(aux);
+            aux->palavra = suc->palavra;
+            aux->significado = suc->significado;
+            remove_palavra(avl, suc->palavra);
+        }
+    }
+
+    else if (compara_strings(aux->palavra, nome) > 0) aux = aux->esq;
+    else if (compara_strings(aux->palavra, nome) < 0) aux = aux->dir;
+
+
+    while(aux != NULL){
+        aux = aux->pai;
+        aux->balanceamento = fb(aux);
+        if(aux->balanceamento > 1 || aux->balanceamento < -1){
+            balancear(aux);
+        }
+        else{
+            return;
+        }
+    }
+
+    printf("%s removido com  sucesso\n" nome);
+}
+
 /*
  * Comandos notáveis:
  * 1 - inicializa árvores
