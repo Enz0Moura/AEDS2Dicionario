@@ -210,7 +210,7 @@ No* le_palavras(No* avl) {
  * 4 - busca nó, retorna altura e definição.
  * 5 - busca nó e retorna altura
  * 6 - mostra todos os nós e suas alturas
- */
+*/
 
 
 int main(void)
