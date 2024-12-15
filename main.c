@@ -16,6 +16,14 @@ int compara_strings(const char *str1, const char *str2) {
     return *str1 - *str2;
 }
 
+void remove_newline(char* str) {
+    size_t len = strcspn(str, "\n");
+    if (str[len] == '\n') {
+        str[len] = '\0';
+    }
+}
+
+
 typedef struct _no {
     struct _no *esq;
     struct _no *dir;
@@ -155,15 +163,28 @@ No* le_palavras(No* avl) {
 
     printf("Digite a palavra: ");
     fgets(palavra, MAX_LEN_NAME, stdin);
+    remove_newline(palavra);
 
     printf("Digite o significado: ");
     fgets(significado, MAX_LEN, stdin);
+    remove_newline(significado);
+
     if (avl == NULL){
         avl = aloca_avl(palavra, significado);
     }
     else avl = insere_palavra(avl, palavra, significado);
 
     return avl;
+}
+
+No* busca_no(No* avl, char* nome) {
+    No* aux = avl;
+    while (aux != NULL) {
+        if (compara_strings(aux->palavra, nome) == 0) return aux;
+        else if (compara_strings(aux->palavra, nome) > 0) aux = aux->esq;
+        else if (compara_strings(aux->palavra, nome) < 0) aux = aux->dir;
+    }
+    return aux;
 }
 
 /*
@@ -181,6 +202,8 @@ int main(void)
 {
     No* avl = NULL;
     for (int i = 0; i < 3; i++) avl = le_palavras(avl);
-    printf("%s",avl->palavra);
+    No* busca = busca_no(avl, "Ameba");
+    if (busca != NULL ) printf("\n%s    h=%d",busca->palavra, altura(busca));
+
     return 0;
 }
