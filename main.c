@@ -132,6 +132,23 @@ void percursoEmOrdem(No * no)
     percursoEmOrdem(no->dir);
 }
 
+void balancear(No* p) {
+    p->balanceamento = fb(p);
+
+    if (p->balanceamento == 2) {
+        if (p->esq->balanceamento >= 0)
+            return rotacionarLL(p);
+        else
+            return rotacionarLR(p);
+    }
+    else if (p->balanceamento == -2) {
+        if (p->dir->balanceamento <= 0)
+            return rotacionarRR(p);
+        else
+            return rotacionarRL(p);
+    }
+}
+
 No* insere_palavra(No* p, char* nome, char* significado) {
     No* novo = NULL;
 
