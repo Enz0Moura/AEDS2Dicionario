@@ -68,7 +68,7 @@ int fb(No* p) {
 }
 
 No* rotacionarLL(No* p) {
-    printf("Rotacionou LL");
+    printf("Rotacionou LL\n");
     No* pesq = p->esq;
     No* pesqdir = pesq->dir;
 
@@ -121,6 +121,17 @@ No* rotacionarLR(No* p) {
     return rotacionarLL(p);
 }
 
+No* busca_no(No* avl, char* nome) {
+    No* aux = avl;
+    while (aux != NULL) {
+        if (compara_strings(aux->palavra, nome) == 0) return aux;
+        else if (compara_strings(aux->palavra, nome) > 0) aux = aux->esq;
+        else if (compara_strings(aux->palavra, nome) < 0) aux = aux->dir;
+    }
+    return aux;
+}
+
+
 No* insere_palavra(No* p, char* nome, char* significado) {
     No* novo = NULL;
 
@@ -172,20 +183,16 @@ No* le_palavras(No* avl) {
     if (avl == NULL){
         avl = aloca_avl(palavra, significado);
     }
-    else avl = insere_palavra(avl, palavra, significado);
+    else {
+        if( busca_no(avl, palavra) == NULL) avl = insere_palavra(avl, palavra, significado);
+        else {
+            printf("Palavra %s já existe no dicionário!\n", palavra);
+        }
+    }
 
     return avl;
 }
 
-No* busca_no(No* avl, char* nome) {
-    No* aux = avl;
-    while (aux != NULL) {
-        if (compara_strings(aux->palavra, nome) == 0) return aux;
-        else if (compara_strings(aux->palavra, nome) > 0) aux = aux->esq;
-        else if (compara_strings(aux->palavra, nome) < 0) aux = aux->dir;
-    }
-    return aux;
-}
 
 /*
  * Comandos notáveis:
@@ -201,7 +208,7 @@ No* busca_no(No* avl, char* nome) {
 int main(void)
 {
     No* avl = NULL;
-    for (int i = 0; i < 3; i++) avl = le_palavras(avl);
+    for (int i = 0; i < 4; i++) avl = le_palavras(avl);
     No* busca = busca_no(avl, "Ameba");
     if (busca != NULL ) printf("\n%s    h=%d",busca->palavra, altura(busca));
 
