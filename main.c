@@ -204,11 +204,11 @@ No* le_palavras(No* avl) {
 
 /*
  * Comandos notáveis:
- 1. Criar uma árvore vazia
- 2. Remover uma palavra
- 3. Inserir uma palavra
- 4. Buscar palavra
- 5. Imprimir a árvore (em ordem)
+ * 1. Criar uma árvore vazia
+ * 2. Remover uma palavra
+ * 3. Inserir uma palavra
+ * 4. Buscar palavra
+ * 5. Imprimir a árvore (em ordem)
 */
 
 
