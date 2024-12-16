@@ -1,0 +1,29 @@
+Árvore criada com sucesso
+Oi nao encontrado
+Operação de remocão da palavra Oi inválida
+Inserção de Zebra com sucesso.
+Inserção de Laço com sucesso.
+LL(Zebra)
+Inserção de Casa com sucesso.
+Inserção de Pão com sucesso.
+LL(Casa)
+Inserção de Mãe com sucesso.
+LL(Laço)
+Inserção de Laço com sucesso.
+Inserção de Bola com sucesso.
+Pão: Alimento feito de farinha de trigo ou de outros cereais, água, fermento, sal e que é assado no forno.  h=2
+Inserção de Olá com sucesso.
+Inserção de Atravessar com sucesso.
+Atravessar nao encontrado
+Busca sem sucesso
+Casa nao encontrado
+Busca sem sucesso
+Zebra  h=0
+Laço  h=2
+Casa  h=1
+Olá  h=0
+Pão  h=3
+Laço  h=0
+Mãe  h=2
+Atravessar  h=0
+Bola  h=1

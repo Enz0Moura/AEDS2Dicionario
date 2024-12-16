@@ -1,0 +1,19 @@
+Árvore criada com sucesso
+Oi nao encontrado
+Operação de remocão da palavra Oi inválida
+Inserção de Amor com sucesso.
+Inserção de Vida com sucesso.
+LL(Amor)
+Inserção de Gato com sucesso.
+Amor  h=0
+Vida  h=1
+Gato  h=0
+Inserção de Crosta com sucesso.
+RR(Crosta)
+LL(Gato)
+Inserção de Bola com sucesso.
+Amor  h=0
+Vida  h=2
+Gato  h=0
+Bola  h=1
+Crosta  h=0

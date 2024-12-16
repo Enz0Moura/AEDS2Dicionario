@@ -1,0 +1,19 @@
+Árvore criada com sucesso
+Inserção de Luz com sucesso.
+Inserção de Claro com sucesso.
+LL(Luz)
+Inserção de Escuro com sucesso.
+Luz  h=0
+Claro  h=1
+Escuro  h=0
+Inserção de Gato com sucesso.
+LL(Escuro)
+Inserção de Igreja com sucesso.
+Clean nao encontrado
+Busca sem sucesso
+Igreja: Templo dedicado ao culto cristão.  h=0
+Luz  h=0
+Claro  h=2
+Escuro  h=0
+Gato  h=1
+Igreja  h=0

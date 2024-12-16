@@ -1,0 +1,67 @@
+Árvore criada com sucesso
+Inserção de Foca com sucesso.
+Inserção de Escola com sucesso.
+Inserção de Casa com sucesso.
+Inserção de Juiz com sucesso.
+LL(Casa)
+Inserção de Gato com sucesso.
+Escola  h=0
+Foca  h=2
+Casa  h=0
+Juiz  h=1
+Gato  h=0
+Casa nao encontrado
+Operação de remocão da palavra Casa inválida
+Escola  h=0
+Foca  h=2
+Casa  h=0
+Juiz  h=1
+Gato  h=0
+LL(Foca)
+Inserção de Kate com sucesso.
+LL(Gato)
+Inserção de Pirulito com sucesso.
+Escola  h=0
+Foca  h=1
+Casa  h=0
+Juiz  h=2
+Gato  h=0
+Kate  h=1
+Pirulito  h=0
+Inserção de Legografia com sucesso.
+Inserção de Opção com sucesso.
+Escola  h=0
+Foca  h=1
+Casa  h=0
+Juiz  h=3
+Gato  h=0
+Kate  h=2
+Opção  h=0
+Pirulito  h=1
+Legografia  h=0
+Removendo palavra: Pirulito
+Pirulito removido com  sucesso
+Opção nao encontrado
+Operação de remocão da palavra Opção inválida
+Removendo palavra: Kate
+Kate removido com  sucesso
+Removendo palavra: Juiz
+Juiz removido com  sucesso
+Escola  h=0
+Foca  h=1
+Casa  h=0
+Gato  h=2
+Opção  h=1
+Legografia  h=0
+Legografia nao encontrado
+Operação de remocão da palavra Legografia inválida
+Escola  h=0
+Foca  h=1
+Casa  h=0
+Gato  h=2
+Opção  h=1
+Legografia  h=0
+Pirulito nao encontrado
+Busca sem sucesso
+Gato: Pequeno mamífero carnívoro, doméstico, da fam. dos felídeos (Felis catus).  h=2
+Foca: Denominação comum a vários mamíferos pinípedes, aquáticos, carnívoros.  h=1

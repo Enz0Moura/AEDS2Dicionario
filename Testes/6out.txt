@@ -1,0 +1,38 @@
+Árvore criada com sucesso
+Inserção de Gato com sucesso.
+Inserção de Dado com sucesso.
+LL(Gato)
+Inserção de Bola com sucesso.
+Inserção de Lápis com sucesso.
+LL(Bola)
+Inserção de Pata com sucesso.
+LL(Dado)
+Inserção de Roedor com sucesso.
+RR(Roedor)
+LL(Pata)
+Inserção de Quieto com sucesso.
+Inserção de Escola com sucesso.
+LL(Roedor)
+Inserção de Faca com sucesso.
+Gato  h=0
+Dado  h=1
+Bola  h=0
+Lápis  h=3
+Pata  h=0
+Quieto  h=2
+Roedor  h=0
+Escola  h=1
+Faca  h=0
+Faca nao encontrado
+Busca sem sucesso
+Bola nao encontrado
+Operação de remocão da palavra Bola inválida
+Gato  h=0
+Dado  h=1
+Bola  h=0
+Lápis  h=3
+Pata  h=0
+Quieto  h=2
+Roedor  h=0
+Escola  h=1
+Faca  h=0

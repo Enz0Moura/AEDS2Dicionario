@@ -1,0 +1,26 @@
+Árvore criada com sucesso
+Carro nao encontrado
+Busca sem sucesso
+Inserção de Carro com sucesso.
+Inserção de Doce com sucesso.
+LL(Carro)
+Inserção de Prato com sucesso.
+Carro  h=0
+Doce  h=1
+Prato  h=0
+Inserção de Cachorro com sucesso.
+Inserção de Queijo com sucesso.
+LL(Prato)
+Inserção de Rato com sucesso.
+Cachorro nao encontrado
+Operação de remocão da palavra Cachorro inválida
+Carro: Um veículo com motor, quatro rodas e assentos para algumas pessoas.  h=1
+Queijo: Alimento obtido da nata do leite de vaca, de cabra, de ovelha.  h=1
+Barco nao encontrado
+Busca sem sucesso
+Carro  h=1
+Cachorro  h=0
+Doce  h=2
+Prato  h=0
+Queijo  h=1
+Rato  h=0

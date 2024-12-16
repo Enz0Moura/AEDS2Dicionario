@@ -1,0 +1,46 @@
+Árvore criada com sucesso
+Inserção de Gato com sucesso.
+Inserção de Dado com sucesso.
+LL(Gato)
+Inserção de Bola com sucesso.
+Gato  h=0
+Dado  h=1
+Bola  h=0
+Inserção de Lápis  com sucesso.
+LL(Bola)
+Inserção de Pata com sucesso.
+Gato  h=0
+Dado  h=2
+Bola  h=0
+Lápis   h=1
+Pata  h=0
+LL(Dado)
+Inserção de Roedor com sucesso.
+Gato  h=0
+Dado  h=1
+Bola  h=0
+Lápis   h=2
+Pata  h=1
+Roedor  h=0
+RR(Roedor)
+LL(Pata)
+Inserção de Quieto com sucesso.
+Gato  h=0
+Dado  h=1
+Bola  h=0
+Lápis   h=2
+Pata  h=0
+Quieto  h=1
+Roedor  h=0
+Inserção de Escola com sucesso.
+LL(Roedor)
+Inserção de Faca com sucesso.
+Gato  h=0
+Dado  h=1
+Bola  h=0
+Lápis   h=3
+Pata  h=0
+Quieto  h=2
+Roedor  h=0
+Escola  h=1
+Faca  h=0

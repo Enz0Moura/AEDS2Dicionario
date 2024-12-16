@@ -1,0 +1,68 @@
+Árvore criada com sucesso
+Inserção de Quieto com sucesso.
+Inserção de Roedor com sucesso.
+Inserção de Pata com sucesso.
+Inserção de Lápis com sucesso.
+LL(Roedor)
+Inserção de Escola com sucesso.
+LL(Quieto)
+Inserção de Gato com sucesso.
+Pata  h=0
+Quieto  h=1
+Roedor  h=0
+Lápis  h=2
+Escola  h=1
+Gato  h=0
+RR(Gato)
+LL(Escola)
+Inserção de Faca com sucesso.
+Inserção de Dado com sucesso.
+LL(Gato)
+Inserção de Bola com sucesso.
+Pata  h=0
+Quieto  h=1
+Roedor  h=0
+Lápis  h=3
+Escola  h=0
+Faca  h=2
+Gato  h=0
+Dado  h=1
+Bola  h=0
+LL(Faca)
+Inserção de Abacaxi com sucesso.
+Pata  h=0
+Quieto  h=1
+Roedor  h=0
+Lápis  h=3
+Escola  h=0
+Faca  h=1
+Gato  h=0
+Dado  h=2
+Abacaxi  h=0
+Bola  h=1
+Quieto nao encontrado
+Operação de remocão da palavra Quieto inválida
+Pata nao encontrado
+Operação de remocão da palavra Pata inválida
+Pata  h=0
+Quieto  h=1
+Roedor  h=0
+Lápis  h=3
+Escola  h=0
+Faca  h=1
+Gato  h=0
+Dado  h=2
+Abacaxi  h=0
+Bola  h=1
+Abacaxi nao encontrado
+Operação de remocão da palavra Abacaxi inválida
+Pata  h=0
+Quieto  h=1
+Roedor  h=0
+Lápis  h=3
+Escola  h=0
+Faca  h=1
+Gato  h=0
+Dado  h=2
+Abacaxi  h=0
+Bola  h=1
