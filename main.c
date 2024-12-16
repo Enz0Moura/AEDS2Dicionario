@@ -44,7 +44,9 @@ No* aloca_no(char* nome, char*significado) {
 
 No* aloca_avl() {
     No* novo = (No*)malloc(sizeof(No));
-    novo->pai = novo;
+    novo->pai = NULL;
+    novo->palavra = NULL;
+    novo->significado = NULL;
     novo->balanceamento = 0;
     novo->palavra = NULL;
     novo->significado = NULL;
@@ -121,6 +123,36 @@ No* rotacionarLR(No* p) {
     return rotacionarLL(p);
 }
 
+void percursoEmOrdem(No * no)
+{
+    if(no == NULL)
+    {
+        return;
+    }
+    percursoEmOrdem(no->esq);
+    printf("%s", no->palavra);
+    percursoEmOrdem(no->dir);
+}
+
+No * balancear(No* p) {
+    p->balanceamento = fb(p);
+
+    if (p->balanceamento == 2) {
+        if (p->esq->balanceamento >= 0)
+            return rotacionarLL(p);
+        else
+            return rotacionarLR(p);
+    }
+    else if (p->balanceamento == -2) {
+        if (p->dir->balanceamento <= 0)
+            return rotacionarRR(p);
+        else
+            return rotacionarRL(p);
+    }
+
+    return p;
+}
+
 No* busca_no(No* avl, char* nome, int printar) {
     No* aux = avl;
     while (aux != NULL) {
@@ -153,22 +185,9 @@ No* insere_palavra(No* p, char* nome, char* significado) {
         p->dir = insere_palavra(p->dir, nome, significado);
         p->dir->pai = p;
     }
-    p->balanceamento = fb(p);
 
-    if (p->balanceamento == 2) {
-        if (p->esq->balanceamento >= 0)
-            return rotacionarLL(p);
-        else
-            return rotacionarLR(p);
-    }
-    else if (p->balanceamento == -2) {
-        if (p->dir->balanceamento <= 0)
-            return rotacionarRR(p);
-        else
-            return rotacionarRL(p);
-    }
+    return balancear(p);
 
-    printf("\nInserção de %s com sucesso!\n", nome);
     return p;
 }
 
@@ -202,6 +221,78 @@ No* le_palavras(No* avl) {
 
 
 
+No * sucessor(No* avl) {
+    No* aux = avl->dir;
+    while (aux->esq != NULL) {
+        aux = aux->esq;
+    }
+    return aux;
+}
+
+void remove_palavra(No * avl, char * nome){
+
+    No* aux = busca_no(avl, nome, 0);
+    if(aux == NULL){
+      printf("Operação de remocão da palavra %s inválida\n", nome);
+      return;
+    }
+    else if (compara_strings(aux->palavra, nome) == 0){
+
+        if(aux->esq == NULL && aux->dir == NULL){
+            if(aux == aux-> pai->esq){
+                aux->pai->esq = NULL;
+            }
+            else{
+                aux->pai->dir = NULL;
+            }
+        }
+
+        else if(aux->esq != NULL && aux->pai->esq == aux){
+            aux->pai->esq = aux->esq;
+            aux->esq->pai = aux->pai;
+        }
+
+        else if(aux->dir != NULL && aux->pai->esq == aux){
+            aux->pai->esq = aux->dir;
+            aux->dir->pai = aux->pai;
+        }
+
+        else if(aux->esq != NULL && aux->pai->dir == aux){
+            aux->pai->dir = aux->esq;
+            aux->esq->pai = aux->pai;
+        }
+
+        else if(aux->dir != NULL && aux->pai->dir == aux){
+            aux->pai->dir = aux->dir;
+            aux->dir->pai = aux->pai;
+        }
+
+        else{
+            No * suc = sucessor(aux);
+            aux->palavra = suc->palavra;
+            aux->significado = suc->significado;
+            remove_palavra(avl, suc->palavra);
+        }
+    }
+
+    else if (compara_strings(aux->palavra, nome) > 0) aux = aux->esq;
+    else if (compara_strings(aux->palavra, nome) < 0) aux = aux->dir;
+
+
+    while(aux != NULL){
+        aux = aux->pai;
+        aux->balanceamento = fb(aux);
+        if(aux->balanceamento > 1 || aux->balanceamento < -1){
+            balancear(aux);
+        }
+        else{
+            return;
+        }
+    }
+
+    printf("%s removido com  sucesso\n", nome);
+}
+
 /*
  * Comandos notáveis:
  * 1. Criar uma árvore vazia
@@ -214,10 +305,68 @@ No* le_palavras(No* avl) {
 
 int main(void)
 {
-    No* avl = aloca_avl();
-    for (int i = 0; i < 4; i++) avl = le_palavras(avl);
-    No* busca = busca_no(avl, "Ameba", 1);
-    if (busca != NULL ) printf("\n%s    h=%d",busca->palavra, altura(busca));
+    No * raiz;
+    char * palavra;
+    char * significado;
 
+    printf("+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-+\n");
+    printf("|Dicionário                                              |");
+    printf("\n|Pressione 1  para inicializar a árvore                |");
+    printf("\n|Pressione 2 para remover uma palavra                  |");
+    printf("\n|Pressione 3 para inserir uma palavra                  |");
+    printf("\n|Pressione 4 para buscar uma palavra                   |");
+    printf("\n|Pressione 5 para  imprimir o percurso em ordem        |");
+    printf("\n|Digite 6 para sair                                    |");
+    printf("\n+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-+\n");
+    char opcao;
+    while (1)
+    {
+        scanf(" %c", &opcao);
+        switch (opcao)
+        {
+            case '1':
+                raiz = aloca_avl();
+                printf("Árvore criada com sucesso\n");
+                break;
+
+            case '2':
+                scanf("%s", palavra);
+                remove_palavra(raiz, palavra);
+                break;
+
+            case '3':
+                scanf("%s", palavra);
+                scanf("%s", significado);
+                insere_palavra(raiz, palavra, significado);
+                break;
+
+            case '4':
+                scanf("%s", palavra);
+                No * aux = busca_no(raiz, palavra, 0);
+                if (aux == NULL)
+                {
+                    printf("Busca sem sucesso\n");
+                }
+                else
+                {
+                    printf("%s\n", palavra);
+                    printf("%s\n", significado);
+                }
+                break;
+
+            case '5':
+                percursoEmOrdem(raiz);
+                break;
+
+            case '6':
+                return 0;
+
+            default:
+                printf("Opcao invalida\n");
+                break;
+        }
+
+        printf("\n");
+    }
     return 0;
 }
