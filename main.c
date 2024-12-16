@@ -5,6 +5,8 @@
 #define MAX_LEN 1000
 
 int compara_strings(const char *str1, const char *str2) {
+    if (str1 == NULL || str2 == NULL) return -1;
+
     while (*str1 && *str2) {
         if (*str1 != *str2) {
             return *str1 - *str2;
@@ -36,8 +38,8 @@ typedef struct _no {
 
 No* aloca_no(char* nome, char*significado) {
     No* novo = (No*)malloc(sizeof(No));
-    novo->palavra = nome;
-    novo->significado = significado;
+    novo->palavra = strdup(nome);
+    novo->significado = strdup(significado);
     novo->balanceamento = 0;
     return novo;
 }
@@ -239,7 +241,7 @@ void remove_palavra(No * avl, char * nome){
     else if (compara_strings(aux->palavra, nome) == 0){
 
         if(aux->esq == NULL && aux->dir == NULL){
-            if(aux == aux-> pai->esq){
+            if(aux == aux->pai->esq){
                 aux->pai->esq = NULL;
             }
             else{
@@ -306,8 +308,8 @@ void remove_palavra(No * avl, char * nome){
 int main(void)
 {
     No * raiz;
-    char * palavra;
-    char * significado;
+    char * palavra = (char*)malloc(sizeof(char) * MAX_LEN_NAME);
+    char * significado = (char*)malloc(sizeof(char) * MAX_LEN);
 
     printf("+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-+\n");
     printf("|Dicionário                                              |");
@@ -321,7 +323,7 @@ int main(void)
     char opcao;
     while (1)
     {
-        scanf(" %c", &opcao);
+        scanf("%c", &opcao);
         switch (opcao)
         {
             case '1':
@@ -335,13 +337,21 @@ int main(void)
                 break;
 
             case '3':
-                scanf("%s", palavra);
-                scanf("%s", significado);
+                do {
+                    fgets(palavra, MAX_LEN_NAME, stdin);
+                    remove_newline(palavra);
+                } while(compara_strings(palavra, "") == 0);
+                fgets(significado, MAX_LEN, stdin);
+                remove_newline(significado);
                 insere_palavra(raiz, palavra, significado);
                 break;
 
             case '4':
-                scanf("%s", palavra);
+                do {
+                    fgets(palavra, MAX_LEN_NAME, stdin);
+                    remove_newline(palavra);
+                } while(compara_strings(palavra, "") == 0);
+
                 No * aux = busca_no(raiz, palavra, 0);
                 if (aux == NULL)
                 {
@@ -362,7 +372,6 @@ int main(void)
                 return 0;
 
             default:
-                printf("Opcao invalida\n");
                 break;
         }
 
